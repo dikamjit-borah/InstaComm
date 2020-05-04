@@ -3,6 +3,7 @@ from selenium.webdriver.support import ui
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+import csv
 
 
 
@@ -24,7 +25,7 @@ time.sleep(2)
 insta.click()'''
 
 
-user_name = 'setuappa3842'
+user_name = 'travislay0102'
 password = 'PbUfKDL7FDuzFNP'
 
 
@@ -92,3 +93,62 @@ time.sleep(2)
 likes = open_Browser.find_element_by_xpath("/html/body/div[4]/div[2]/div/article/div[2]/section[2]/div/div/button")
 time.sleep(2)
 likes.click()
+time.sleep(3)
+scroll_box = open_Browser.find_element_by_xpath("/html/body/div[5]/div/div[2]/div")
+last_ht, ht = 0, 1
+
+
+likers = []
+while last_ht != ht:
+    last_ht = ht
+    time.sleep(1)
+    likers_links = scroll_box.find_elements_by_tag_name('a')
+    for link in likers_links:
+        likers_name = link.text
+        if(likers_name!=''):
+            print(likers_name)
+            likers.append(likers_name)
+    ht = open_Browser.execute_script("""
+                arguments[0].scrollTo(0, arguments[0].scrollHeight); 
+                return arguments[0].scrollHeight;
+                """, scroll_box)
+
+print(likers)
+
+# following = open_Browser.find_element_by_xpath("/html/body/div[1]/section/main/div/header/section/ul/li[3]/a")
+# time.sleep(2)
+
+# following.click()
+# time.sleep(3)
+
+# scroll_box = open_Browser.find_element_by_xpath("/html/body/div[4]/div/div[2]")
+# last_ht, ht = 0, 1
+
+# following_list = []
+
+# while last_ht != ht:
+#     last_ht = ht
+#     time.sleep(1)
+#     following_links = scroll_box.find_elements_by_tag_name('a')
+#     for link in following_links:
+#         following_name = link.text
+#         if(following_name!=''):
+#             print(following_name)
+#             following_list.append(following_name)
+#     ht = open_Browser.execute_script("""
+#                 arguments[0].scrollTo(0, arguments[0].scrollHeight); 
+#                 return arguments[0].scrollHeight;
+#                 """, scroll_box)
+
+file1 = open('likers.txt', 'w')
+
+for i in likers:
+    file1.write(i + "\n")
+file1.close()
+
+
+# file2 = open('following.txt', 'w')
+# for i in following_list:
+#     file2.write(i+'\n')
+# file2.close()
+
