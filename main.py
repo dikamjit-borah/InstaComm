@@ -26,7 +26,7 @@ insta.click()'''
 
 
 user_name = 'travislay0102'
-password = 'PbUfKDL7FDuzFNP'
+password = ''
 
 
 open_Browser = webdriver.Chrome()
